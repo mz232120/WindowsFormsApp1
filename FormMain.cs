@@ -48,5 +48,12 @@ namespace WindowsFormsApp1
             //3.显示子窗体
             frmAddUser.Show();
         }
+
+        private void mniMuser_Click(object sender, EventArgs e)
+        {
+            FrmUserManagment frmUserManagment = new FrmUserManagment();
+            frmUserManagment.MdiParent = this;
+            frmUserManagment.Show();
+        }
     }
 }

@@ -98,7 +98,8 @@
             this.mniMuser.Name = "mniMuser";
             this.mniMuser.Size = new System.Drawing.Size(182, 34);
             this.mniMuser.Text = "管理用户";
-            // 
+            this.mniMuser.Click += new System.EventHandler(this.mniMuser_Click);
+            //
             // 学员基本信息ToolStripMenuItem
             // 
             this.学员基本信息ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
