@@ -150,5 +150,35 @@ namespace WindowsFormsApp1
                 }
             }
         }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            // 1. 判断是否选中行
+            if (dgUser.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请选择需要修改用户", "提示");
+                return;
+            }
+
+            // 2. 确认修改
+            DialogResult result = MessageBox.Show("确认修改(y/n)?", "提示", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+
+            // 3. 获取选中行的数据
+            int id = (int)dgUser.SelectedRows[0].Cells[0].Value;
+            string name = dgUser.SelectedRows[0].Cells[1].Value.ToString();
+            string pwd = dgUser.SelectedRows[0].Cells[2].Value.ToString();
+            int status = (int)dgUser.SelectedRows[0].Cells[3].Value;
+
+            // 4. 创建修改窗体并以对话框方式打开
+            FrmModifyUser frmModifyUser = new FrmModifyUser(id, name, pwd, status);
+            frmModifyUser.ShowDialog();
+
+            // 5. 重新绑定数据
+            bindData();
+        }
     }
 }

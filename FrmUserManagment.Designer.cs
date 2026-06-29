@@ -32,6 +32,7 @@ namespace WindowsFormsApp1
             this.txtContent = new System.Windows.Forms.TextBox();
             this.btnQuery = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnModify = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgUser)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +73,16 @@ namespace WindowsFormsApp1
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             //
+            // btnModify
+            //
+            this.btnModify.Location = new System.Drawing.Point(580, 20);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(80, 30);
+            this.btnModify.TabIndex = 5;
+            this.btnModify.Text = "修改";
+            this.btnModify.UseVisualStyleBackColor = true;
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
+            //
             // dgUser
             //
             this.dgUser.AllowUserToAddRows = false;
@@ -88,15 +99,16 @@ namespace WindowsFormsApp1
             this.dgUser.RowHeadersWidth = 51;
             this.dgUser.RowTemplate.Height = 27;
             this.dgUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgUser.Size = new System.Drawing.Size(530, 320);
+            this.dgUser.Size = new System.Drawing.Size(630, 320);
             this.dgUser.TabIndex = 4;
             //
             // FrmUserManagment
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 410);
+            this.ClientSize = new System.Drawing.Size(690, 410);
             this.Controls.Add(this.dgUser);
+            this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnQuery);
             this.Controls.Add(this.txtContent);
@@ -117,6 +129,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox txtContent;
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Label lblSearch;
     }
 }
