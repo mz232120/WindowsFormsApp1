@@ -1,12 +1,15 @@
 using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using WindowsFormsApp1.bll;
+using WindowsFormsApp1.entity;
 
 namespace WindowsFormsApp1
 {
     public partial class FrmCourseManagement : Form
     {
+        private CourseBll courseBll = new CourseBll();
+
         public FrmCourseManagement()
         {
             InitializeComponent();
@@ -20,35 +23,15 @@ namespace WindowsFormsApp1
         private void btnQuery_Click(object sender, EventArgs e)
         {
             // 按关键字查询学科
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
-
                 string search = txtContent.Text;
-                string sql = "SELECT * FROM courseInfo WHERE name LIKE @search OR remark LIKE @search";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@search", "%" + search + "%");
-
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                DataSet dataSet = new DataSet();
-                dataAdapter.Fill(dataSet);
-
-                dgCourse.DataSource = dataSet.Tables[0];
+                List<CourseInfo> list = courseBll.FindByKeyword(search);
+                BindGrid(list);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("查询失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
             }
         }
 
@@ -70,48 +53,23 @@ namespace WindowsFormsApp1
 
             int id = (int)dgCourse.SelectedRows[0].Cells[0].Value;
 
-            // 3. 检查该科目是否被成绩表引用
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
-
-                // 检查是否有成绩记录引用该科目
-                string checkSql = "SELECT COUNT(*) FROM scoreInfo WHERE courseId=@id";
-                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
-                checkCmd.Parameters.AddWithValue("@id", id);
-                int count = (int)checkCmd.ExecuteScalar();
-
-                if (count > 0)
+                // 3. 执行删除
+                bool success = courseBll.Delete(id);
+                if (success)
                 {
-                    MessageBox.Show("该科目下有成绩记录，不能删除", "提示");
-                    return;
+                    MessageBox.Show("删除学科成功", "提示");
+                    bindData();
                 }
-
-                // 4. 执行删除
-                string sql = "DELETE FROM courseInfo WHERE id=@id";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
-
-                MessageBox.Show("删除学科成功", "提示");
-
-                // 5. 重新绑定数据
-                bindData();
+                else
+                {
+                    MessageBox.Show("删除失败：该科目下有成绩记录，不能删除", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("删除失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
             }
         }
 
@@ -120,39 +78,39 @@ namespace WindowsFormsApp1
         /// </summary>
         private void bindData()
         {
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
-
-                string sql = "SELECT * FROM courseInfo";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                DataSet dataSet = new DataSet();
-                dataAdapter.Fill(dataSet);
-
-                dgCourse.DataSource = dataSet.Tables[0];
-
-                // 设置表头中文显示
-                dgCourse.Columns[0].HeaderText = "编号";
-                dgCourse.Columns[1].HeaderText = "学科名称";
-                dgCourse.Columns[2].HeaderText = "备注";
+                List<CourseInfo> list = courseBll.FindAll();
+                BindGrid(list);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("加载数据失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+        }
+
+        /// <summary>
+        /// 绑定数据到DataGridView
+        /// </summary>
+        private void BindGrid(List<CourseInfo> list)
+        {
+            // 创建DataTable并填充数据
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("remark", typeof(string));
+
+            foreach (CourseInfo course in list)
             {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
+                dt.Rows.Add(course.Id, course.Name, course.Remark);
             }
+
+            dgCourse.DataSource = dt;
+
+            // 设置表头中文显示
+            dgCourse.Columns[0].HeaderText = "编号";
+            dgCourse.Columns[1].HeaderText = "学科名称";
+            dgCourse.Columns[2].HeaderText = "备注";
         }
 
         private void btnModify_Click(object sender, EventArgs e)

@@ -1,12 +1,14 @@
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
+using WindowsFormsApp1.bll;
+using WindowsFormsApp1.entity;
 
 namespace WindowsFormsApp1
 {
     public partial class FrmAddCourse : Form
     {
+        private CourseBll courseBll = new CourseBll();
+
         public FrmAddCourse()
         {
             InitializeComponent();
@@ -25,57 +27,30 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            // 2. 连接数据库，添加学科
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
+                // 2. 创建学科对象
+                CourseInfo course = new CourseInfo();
+                course.Name = courseName;
+                course.Remark = remark;
 
-                // 检查学科名称是否已存在
-                string checkSql = "SELECT COUNT(*) FROM courseInfo WHERE name=@name";
-                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
-                checkCmd.Parameters.AddWithValue("@name", courseName);
-                int count = (int)checkCmd.ExecuteScalar();
+                // 3. 调用业务逻辑层添加学科
+                bool success = courseBll.Add(course);
 
-                if (count > 0)
-                {
-                    MessageBox.Show("学科名称已存在，请更换名称", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtCourseName.Focus();
-                    return;
-                }
-
-                // 插入新学科
-                string insertSql = "INSERT INTO courseInfo (name, remark) VALUES (@name, @remark)";
-                SqlCommand insertCmd = new SqlCommand(insertSql, conn);
-                insertCmd.Parameters.AddWithValue("@name", courseName);
-                insertCmd.Parameters.AddWithValue("@remark", remark);
-
-                int result = insertCmd.ExecuteNonQuery();
-
-                if (result > 0)
+                if (success)
                 {
                     MessageBox.Show("学科添加成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // 清空输入框
                     ClearInputs();
                 }
                 else
                 {
-                    MessageBox.Show("学科添加失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("学科名称已存在，请更换名称", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCourseName.Focus();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("数据库连接失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
+                MessageBox.Show("添加失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -1,12 +1,15 @@
 using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using WindowsFormsApp1.bll;
+using WindowsFormsApp1.entity;
 
 namespace WindowsFormsApp1
 {
     public partial class FrmUserManagment : Form
     {
+        private UserBll userBll = new UserBll();
+
         public FrmUserManagment()
         {
             InitializeComponent();
@@ -20,35 +23,15 @@ namespace WindowsFormsApp1
         private void btnQuery_Click(object sender, EventArgs e)
         {
             // 按关键字查询用户
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
-
                 string search = txtContent.Text;
-                string sql = "SELECT * FROM userInfo WHERE name LIKE @search OR pwd LIKE @search";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@search", "%" + search + "%");
-
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                DataSet dataSet = new DataSet();
-                dataAdapter.Fill(dataSet);
-
-                dgUser.DataSource = dataSet.Tables[0];
+                List<UserInfo> list = userBll.FindByKeyword(search);
+                BindGrid(list);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("查询失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
             }
         }
 
@@ -71,42 +54,23 @@ namespace WindowsFormsApp1
             int id = (int)dgUser.SelectedRows[0].Cells[0].Value;
             int status = (int)dgUser.SelectedRows[0].Cells[3].Value;
 
-            // 3. 状态为1（正常）的用户不能删除
-            if (status == 1)
-            {
-                MessageBox.Show("用户正常中，不能删除");
-                return;
-            }
-
-            // 4. 连接数据库，执行删除
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
-
-                string sql = "DELETE FROM userInfo WHERE id=@id";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
-
-                MessageBox.Show("删除用户成功", "提示");
-
-                // 5. 重新绑定数据
-                bindData();
+                // 3. 执行删除
+                bool success = userBll.Delete(id, status);
+                if (success)
+                {
+                    MessageBox.Show("删除用户成功", "提示");
+                    bindData();
+                }
+                else
+                {
+                    MessageBox.Show("用户正常中，不能删除", "提示");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("删除失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
             }
         }
 
@@ -115,40 +79,41 @@ namespace WindowsFormsApp1
         /// </summary>
         private void bindData()
         {
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
-
-                string sql = "SELECT * FROM userInfo";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                DataSet dataSet = new DataSet();
-                dataAdapter.Fill(dataSet);
-
-                dgUser.DataSource = dataSet.Tables[0];
-
-                // 设置表头中文显示
-                dgUser.Columns[0].HeaderText = "编号";
-                dgUser.Columns[1].HeaderText = "用户名";
-                dgUser.Columns[2].HeaderText = "密码";
-                dgUser.Columns[3].HeaderText = "状态";
+                List<UserInfo> list = userBll.FindAll();
+                BindGrid(list);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("加载数据失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+        }
+
+        /// <summary>
+        /// 绑定数据到DataGridView
+        /// </summary>
+        private void BindGrid(List<UserInfo> list)
+        {
+            // 创建DataTable并填充数据
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("pwd", typeof(string));
+            dt.Columns.Add("status", typeof(int));
+
+            foreach (UserInfo user in list)
             {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
+                dt.Rows.Add(user.Id, user.Name, user.Pwd, user.Status);
             }
+
+            dgUser.DataSource = dt;
+
+            // 设置表头中文显示
+            dgUser.Columns[0].HeaderText = "编号";
+            dgUser.Columns[1].HeaderText = "用户名";
+            dgUser.Columns[2].HeaderText = "密码";
+            dgUser.Columns[3].HeaderText = "状态";
         }
 
         private void btnModify_Click(object sender, EventArgs e)

@@ -94,6 +94,15 @@
     <Compile Include="FrmModifyCourse.Designer.cs">
       <DependentUpon>FrmModifyCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="entity\UserInfo.cs" />
+    <Compile Include="entity\CourseInfo.cs" />
+    <Compile Include="entity\StuInfo.cs" />
+    <Compile Include="entity\ScoreInfo.cs" />
+    <Compile Include="dal\UserDao.cs" />
+    <Compile Include="dal\CourseDao.cs" />
+    <Compile Include="bll\UserBll.cs" />
+    <Compile Include="bll\CourseBll.cs" />
+    <Compile Include="util\DBUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

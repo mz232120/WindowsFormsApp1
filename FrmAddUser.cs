@@ -1,12 +1,14 @@
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
+using WindowsFormsApp1.bll;
+using WindowsFormsApp1.entity;
 
 namespace WindowsFormsApp1
 {
     public partial class FrmAddUser : Form
     {
+        private UserBll userBll = new UserBll();
+
         public FrmAddUser()
         {
             InitializeComponent();
@@ -32,61 +34,31 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            // 2. 状态：可用=1，禁用=0
-            int status = rdoEnabled.Checked ? 1 : 0;
-
-            // 3. 连接数据库，添加用户
-            string connStr = "Data Source=.;Initial Catalog=studentDB;User ID=sa;Password=123456";
-            SqlConnection conn = null;
-
             try
             {
-                conn = new SqlConnection(connStr);
-                conn.Open();
+                // 2. 创建用户对象
+                UserInfo user = new UserInfo();
+                user.Name = userName;
+                user.Pwd = password;
+                user.Status = rdoEnabled.Checked ? 1 : 0;
 
-                // 检查用户名是否已存在
-                string checkSql = "SELECT COUNT(*) FROM userInfo WHERE name=@name";
-                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
-                checkCmd.Parameters.AddWithValue("@name", userName);
-                int count = (int)checkCmd.ExecuteScalar();
+                // 3. 调用业务逻辑层添加用户
+                bool success = userBll.Add(user);
 
-                if (count > 0)
-                {
-                    MessageBox.Show("用户名已存在，请更换用户名", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtUserName.Focus();
-                    return;
-                }
-
-                // 插入新用户
-                string insertSql = "INSERT INTO userInfo (name, pwd, status) VALUES (@name, @pwd, @status)";
-                SqlCommand insertCmd = new SqlCommand(insertSql, conn);
-                insertCmd.Parameters.AddWithValue("@name", userName);
-                insertCmd.Parameters.AddWithValue("@pwd", password);
-                insertCmd.Parameters.AddWithValue("@status", status);
-
-                int result = insertCmd.ExecuteNonQuery();
-
-                if (result > 0)
+                if (success)
                 {
                     MessageBox.Show("用户添加成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // 清空输入框
                     ClearInputs();
                 }
                 else
                 {
-                    MessageBox.Show("用户添加失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("用户名已存在，请更换用户名", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUserName.Focus();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("数据库连接失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
+                MessageBox.Show("添加失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
