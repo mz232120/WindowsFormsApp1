@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using WindowsFormsApp1.bll;
 using WindowsFormsApp1.entity;
+using WindowsFormsApp1.util;
 
 namespace WindowsFormsApp1
 {
@@ -12,6 +13,15 @@ namespace WindowsFormsApp1
         public FrmAddStudent()
         {
             InitializeComponent();
+        }
+
+        private void FrmAddStudent_Load(object sender, EventArgs e)
+        {
+            // 使用 FileHelper 获取项目根目录，加载默认图片
+            string appPath = FileHelper.FindProjectRoot();
+            string defaultImg = appPath + "/imgs/default.jpg";
+            picPhoto.ImageLocation = defaultImg;
+            txtPhoto.Text = defaultImg;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
