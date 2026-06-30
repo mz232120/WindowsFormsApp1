@@ -30,6 +30,9 @@ namespace WindowsFormsApp1
             this.dtpBirth = new System.Windows.Forms.DateTimePicker();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.picPhoto = new System.Windows.Forms.PictureBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             this.SuspendLayout();
             //
             // lblName
@@ -64,9 +67,9 @@ namespace WindowsFormsApp1
             this.lblPhoto.AutoSize = true;
             this.lblPhoto.Location = new System.Drawing.Point(60, 175);
             this.lblPhoto.Name = "lblPhoto";
-            this.lblPhoto.Size = new System.Drawing.Size(37, 15);
+            this.lblPhoto.Size = new System.Drawing.Size(67, 15);
             this.lblPhoto.TabIndex = 3;
-            this.lblPhoto.Text = "照片";
+            this.lblPhoto.Text = "照片路径";
             //
             // lblRemark
             //
@@ -90,12 +93,14 @@ namespace WindowsFormsApp1
             this.txtPhoto.Name = "txtPhoto";
             this.txtPhoto.Size = new System.Drawing.Size(200, 25);
             this.txtPhoto.TabIndex = 8;
+            this.txtPhoto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtPhoto_MouseClick);
             //
             // txtRemark
             //
             this.txtRemark.Location = new System.Drawing.Point(140, 217);
+            this.txtRemark.Multiline = true;
             this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(200, 25);
+            this.txtRemark.Size = new System.Drawing.Size(200, 60);
             this.txtRemark.TabIndex = 9;
             //
             // rdoMale
@@ -129,7 +134,7 @@ namespace WindowsFormsApp1
             //
             // btnClear
             //
-            this.btnClear.Location = new System.Drawing.Point(100, 270);
+            this.btnClear.Location = new System.Drawing.Point(100, 300);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(90, 32);
             this.btnClear.TabIndex = 11;
@@ -139,19 +144,30 @@ namespace WindowsFormsApp1
             //
             // btnAdd
             //
-            this.btnAdd.Location = new System.Drawing.Point(230, 270);
+            this.btnAdd.Location = new System.Drawing.Point(230, 300);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(90, 32);
             this.btnAdd.TabIndex = 12;
-            this.btnAdd.Text = "添加学员";
+            this.btnAdd.Text = "添加";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            //
+            // picPhoto
+            //
+            this.picPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPhoto.Location = new System.Drawing.Point(400, 37);
+            this.picPhoto.Name = "picPhoto";
+            this.picPhoto.Size = new System.Drawing.Size(160, 180);
+            this.picPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPhoto.TabIndex = 13;
+            this.picPhoto.TabStop = false;
             //
             // FrmAddStudent
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 320);
+            this.ClientSize = new System.Drawing.Size(600, 360);
+            this.Controls.Add(this.picPhoto);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.dtpBirth);
@@ -167,7 +183,8 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.lblName);
             this.Name = "FrmAddStudent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "添加学员";
+            this.Text = "添加学生";
+            ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -187,5 +204,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.DateTimePicker dtpBirth;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.PictureBox picPhoto;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

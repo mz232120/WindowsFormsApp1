@@ -31,6 +31,9 @@ namespace WindowsFormsApp1
             this.rdoFemale = new System.Windows.Forms.RadioButton();
             this.dtpBirth = new System.Windows.Forms.DateTimePicker();
             this.btnModify = new System.Windows.Forms.Button();
+            this.picPhoto = new System.Windows.Forms.PictureBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).BeginInit();
             this.SuspendLayout();
             //
             // lblId
@@ -76,7 +79,7 @@ namespace WindowsFormsApp1
             this.lblPhoto.Name = "lblPhoto";
             this.lblPhoto.Size = new System.Drawing.Size(37, 15);
             this.lblPhoto.TabIndex = 4;
-            this.lblPhoto.Text = "照片";
+            this.lblPhoto.Text = "照片路径";
             //
             // lblRemark
             //
@@ -108,12 +111,14 @@ namespace WindowsFormsApp1
             this.txtPhoto.Name = "txtPhoto";
             this.txtPhoto.Size = new System.Drawing.Size(200, 25);
             this.txtPhoto.TabIndex = 10;
+            this.txtPhoto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtPhoto_MouseClick);
             //
             // txtRemark
             //
             this.txtRemark.Location = new System.Drawing.Point(140, 262);
+            this.txtRemark.Multiline = true;
             this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(200, 25);
+            this.txtRemark.Size = new System.Drawing.Size(200, 60);
             this.txtRemark.TabIndex = 11;
             //
             // rdoMale
@@ -147,7 +152,7 @@ namespace WindowsFormsApp1
             //
             // btnModify
             //
-            this.btnModify.Location = new System.Drawing.Point(140, 310);
+            this.btnModify.Location = new System.Drawing.Point(140, 340);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(120, 35);
             this.btnModify.TabIndex = 13;
@@ -155,11 +160,25 @@ namespace WindowsFormsApp1
             this.btnModify.UseVisualStyleBackColor = true;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             //
+            // picPhoto
+            //
+            this.picPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPhoto.Location = new System.Drawing.Point(400, 37);
+            this.picPhoto.Name = "picPhoto";
+            this.picPhoto.Size = new System.Drawing.Size(160, 180);
+            this.picPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPhoto.TabIndex = 14;
+            this.picPhoto.TabStop = false;
+            //
+            // openFileDialog1
+            //
+            //
             // FrmModifyStudent
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 370);
+            this.ClientSize = new System.Drawing.Size(600, 400);
+            this.Controls.Add(this.picPhoto);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.dtpBirth);
             this.Controls.Add(this.rdoFemale);
@@ -176,8 +195,8 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.lblId);
             this.Name = "FrmModifyStudent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "修改学员";
-            this.Load += new System.EventHandler(this.FrmModifyStudent_Load);
+            this.Text = "修改学生";
+            ((System.ComponentModel.ISupportInitialize)(this.picPhoto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -198,5 +217,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.RadioButton rdoFemale;
         private System.Windows.Forms.DateTimePicker dtpBirth;
         private System.Windows.Forms.Button btnModify;
+        private System.Windows.Forms.PictureBox picPhoto;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

@@ -27,10 +27,8 @@ namespace WindowsFormsApp1
             dtpBirth.Value = birth;
             txtPhoto.Text = photo;
             txtRemark.Text = remark;
-        }
-
-        private void FrmModifyStudent_Load(object sender, EventArgs e)
-        {
+            // 初始化时显示照片预览
+            picPhoto.ImageLocation = photo;
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -72,6 +70,23 @@ namespace WindowsFormsApp1
             catch (Exception ex)
             {
                 MessageBox.Show("修改失败：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 点击照片文本框，弹出文件选择对话框
+        /// </summary>
+        private void txtPhoto_MouseClick(object sender, MouseEventArgs e)
+        {
+            // 1. 设置文件对话框的过滤器,过滤图片文件
+            openFileDialog1.Filter = "图片文件|*.jpg;*.jpeg;*.png;*.gif";
+            // 2. openFileDialog1.ShowDialog():打开对话框 DialogResult.OK 表示确认
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // 获取选中的图片路径，赋值给文本框
+                txtPhoto.Text = openFileDialog1.FileName;
+                // 将图片显示器的图片路径设置成图片路径
+                picPhoto.ImageLocation = txtPhoto.Text;
             }
         }
     }

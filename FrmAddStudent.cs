@@ -66,6 +66,23 @@ namespace WindowsFormsApp1
             ClearInputs();
         }
 
+        /// <summary>
+        /// 点击照片文本框，弹出文件选择对话框
+        /// </summary>
+        private void txtPhoto_MouseClick(object sender, MouseEventArgs e)
+        {
+            // 1. 设置文件对话框的过滤器,过滤图片文件
+            openFileDialog1.Filter = "图片文件|*.jpg;*.jpeg;*.png;*.gif";
+            // 2. openFileDialog1.ShowDialog():打开对话框 DialogResult.OK 表示确认
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // 获取选中的图片路径，赋值给文本框
+                txtPhoto.Text = openFileDialog1.FileName;
+                // 将图片显示器的图片路径设置成图片路径
+                picPhoto.ImageLocation = txtPhoto.Text;
+            }
+        }
+
         private void ClearInputs()
         {
             txtName.Text = "";
@@ -73,6 +90,7 @@ namespace WindowsFormsApp1
             dtpBirth.Value = DateTime.Now;
             txtPhoto.Text = "";
             txtRemark.Text = "";
+            picPhoto.ImageLocation = "";
             txtName.Focus();
         }
     }
