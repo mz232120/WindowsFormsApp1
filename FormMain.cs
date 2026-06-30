@@ -55,5 +55,19 @@ namespace WindowsFormsApp1
             frmUserManagment.MdiParent = this;
             frmUserManagment.Show();
         }
+
+        private void mniAddCourse_Click(object sender, EventArgs e)
+        {
+            FrmAddCourse frmAddCourse = new FrmAddCourse();
+            frmAddCourse.MdiParent = this;
+            frmAddCourse.Show();
+        }
+
+        private void mniCourseManagement_Click(object sender, EventArgs e)
+        {
+            FrmCourseManagement frmCourseManagement = new FrmCourseManagement();
+            frmCourseManagement.MdiParent = this;
+            frmCourseManagement.Show();
+        }
     }
 }

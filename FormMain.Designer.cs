@@ -142,12 +142,14 @@
             this.添加科目ToolStripMenuItem.Name = "添加科目ToolStripMenuItem";
             this.添加科目ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.添加科目ToolStripMenuItem.Text = "添加科目";
+            this.添加科目ToolStripMenuItem.Click += new System.EventHandler(this.mniAddCourse_Click);
             // 
             // 管理科目ToolStripMenuItem
             // 
             this.管理科目ToolStripMenuItem.Name = "管理科目ToolStripMenuItem";
             this.管理科目ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.管理科目ToolStripMenuItem.Text = "管理科目";
+            this.管理科目ToolStripMenuItem.Click += new System.EventHandler(this.mniCourseManagement_Click);
             // 
             // 成绩管理ToolStripMenuItem
             // 
