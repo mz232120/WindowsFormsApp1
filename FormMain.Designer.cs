@@ -115,6 +115,7 @@
             this.mniAddstu.Name = "mniAddstu";
             this.mniAddstu.Size = new System.Drawing.Size(182, 34);
             this.mniAddstu.Text = "添加学员";
+            this.mniAddstu.Click += new System.EventHandler(this.mniAddStudent_Click);
             // 
             // mniupdate
             // 
@@ -127,6 +128,7 @@
             this.管理学员ToolStripMenuItem.Name = "管理学员ToolStripMenuItem";
             this.管理学员ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.管理学员ToolStripMenuItem.Text = "管理学员";
+            this.管理学员ToolStripMenuItem.Click += new System.EventHandler(this.mniStudentManagement_Click);
             // 
             // 科目管理ToolStripMenuItem
             // 
@@ -166,12 +168,14 @@
             this.添加成绩1ToolStripMenuItem.Name = "添加成绩1ToolStripMenuItem";
             this.添加成绩1ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.添加成绩1ToolStripMenuItem.Text = "添加成绩";
+            this.添加成绩1ToolStripMenuItem.Click += new System.EventHandler(this.mniAddScore_Click);
             // 
             // 管理成绩ToolStripMenuItem
             // 
             this.管理成绩ToolStripMenuItem.Name = "管理成绩ToolStripMenuItem";
             this.管理成绩ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.管理成绩ToolStripMenuItem.Text = "管理成绩";
+            this.管理成绩ToolStripMenuItem.Click += new System.EventHandler(this.mniScoreManagement_Click);
             // 
             // 成绩统计ToolStripMenuItem
             // 

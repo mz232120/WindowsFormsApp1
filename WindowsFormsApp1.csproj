@@ -94,14 +94,54 @@
     <Compile Include="FrmModifyCourse.Designer.cs">
       <DependentUpon>FrmModifyCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmStudentManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmStudentManagement.Designer.cs">
+      <DependentUpon>FrmStudentManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddStudent.Designer.cs">
+      <DependentUpon>FrmAddStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModifyStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModifyStudent.Designer.cs">
+      <DependentUpon>FrmModifyStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmScoreManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmScoreManagement.Designer.cs">
+      <DependentUpon>FrmScoreManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddScore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddScore.Designer.cs">
+      <DependentUpon>FrmAddScore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModifyScore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModifyScore.Designer.cs">
+      <DependentUpon>FrmModifyScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="entity\UserInfo.cs" />
     <Compile Include="entity\CourseInfo.cs" />
     <Compile Include="entity\StuInfo.cs" />
     <Compile Include="entity\ScoreInfo.cs" />
     <Compile Include="dal\UserDao.cs" />
     <Compile Include="dal\CourseDao.cs" />
+    <Compile Include="dal\StudentDao.cs" />
+    <Compile Include="dal\ScoreDao.cs" />
     <Compile Include="bll\UserBll.cs" />
     <Compile Include="bll\CourseBll.cs" />
+    <Compile Include="bll\StudentBll.cs" />
+    <Compile Include="bll\ScoreBll.cs" />
     <Compile Include="util\DBUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +162,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmModifyCourse.resx">
       <DependentUpon>FrmModifyCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmStudentManagement.resx">
+      <DependentUpon>FrmStudentManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddStudent.resx">
+      <DependentUpon>FrmAddStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModifyStudent.resx">
+      <DependentUpon>FrmModifyStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmScoreManagement.resx">
+      <DependentUpon>FrmScoreManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddScore.resx">
+      <DependentUpon>FrmAddScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModifyScore.resx">
+      <DependentUpon>FrmModifyScore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
