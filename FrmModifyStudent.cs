@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using WindowsFormsApp1.bll;
 using WindowsFormsApp1.entity;
+using WindowsFormsApp1.util;
 
 namespace WindowsFormsApp1
 {
@@ -27,8 +28,8 @@ namespace WindowsFormsApp1
             dtpBirth.Value = birth;
             txtPhoto.Text = photo;
             txtRemark.Text = remark;
-            // 初始化时显示照片预览
-            picPhoto.ImageLocation = photo;
+            // 初始化时显示照片预览，将相对路径转为绝对路径
+            picPhoto.ImageLocation = FileHelper.GetFullPath(photo);
         }
 
         private void btnModify_Click(object sender, EventArgs e)

@@ -35,7 +35,6 @@
             this.mniMuser = new System.Windows.Forms.ToolStripMenuItem();
             this.学员基本信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mniAddstu = new System.Windows.Forms.ToolStripMenuItem();
-            this.mniupdate = new System.Windows.Forms.ToolStripMenuItem();
             this.管理学员ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.科目管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加科目ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +103,6 @@
             // 
             this.学员基本信息ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mniAddstu,
-            this.mniupdate,
             this.管理学员ToolStripMenuItem});
             this.学员基本信息ToolStripMenuItem.Name = "学员基本信息ToolStripMenuItem";
             this.学员基本信息ToolStripMenuItem.Size = new System.Drawing.Size(170, 28);
@@ -116,13 +114,7 @@
             this.mniAddstu.Size = new System.Drawing.Size(182, 34);
             this.mniAddstu.Text = "添加学员";
             this.mniAddstu.Click += new System.EventHandler(this.mniAddStudent_Click);
-            // 
-            // mniupdate
-            // 
-            this.mniupdate.Name = "mniupdate";
-            this.mniupdate.Size = new System.Drawing.Size(182, 34);
-            this.mniupdate.Text = "修改学员";
-            // 
+            //
             // 管理学员ToolStripMenuItem
             // 
             this.管理学员ToolStripMenuItem.Name = "管理学员ToolStripMenuItem";
@@ -176,12 +168,13 @@
             this.管理成绩ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.管理成绩ToolStripMenuItem.Text = "管理成绩";
             this.管理成绩ToolStripMenuItem.Click += new System.EventHandler(this.mniScoreManagement_Click);
-            // 
+            //
             // 成绩统计ToolStripMenuItem
-            // 
+            //
             this.成绩统计ToolStripMenuItem.Name = "成绩统计ToolStripMenuItem";
             this.成绩统计ToolStripMenuItem.Size = new System.Drawing.Size(182, 34);
             this.成绩统计ToolStripMenuItem.Text = "成绩统计";
+            this.成绩统计ToolStripMenuItem.Click += new System.EventHandler(this.mniScoreStatistics_Click);
             // 
             // 帮助ToolStripMenuItem
             // 
@@ -315,7 +308,6 @@
         private System.Windows.Forms.ToolStripMenuItem 成绩管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mniAddstu;
-        private System.Windows.Forms.ToolStripMenuItem mniupdate;
         private System.Windows.Forms.ToolStripMenuItem 管理学员ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 添加科目ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 管理科目ToolStripMenuItem;

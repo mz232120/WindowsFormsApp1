@@ -130,6 +130,12 @@
     <Compile Include="FrmModifyScore.Designer.cs">
       <DependentUpon>FrmModifyScore.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmScoreStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmScoreStatistics.Designer.cs">
+      <DependentUpon>FrmScoreStatistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="entity\UserInfo.cs" />
     <Compile Include="entity\CourseInfo.cs" />
     <Compile Include="entity\StuInfo.cs" />
@@ -181,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmModifyScore.resx">
       <DependentUpon>FrmModifyScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmScoreStatistics.resx">
+      <DependentUpon>FrmScoreStatistics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

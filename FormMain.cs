@@ -97,5 +97,12 @@ namespace WindowsFormsApp1
             frmScoreManagement.MdiParent = this;
             frmScoreManagement.Show();
         }
+
+        private void mniScoreStatistics_Click(object sender, EventArgs e)
+        {
+            FrmScoreStatistics frmScoreStatistics = new FrmScoreStatistics();
+            frmScoreStatistics.MdiParent = this;
+            frmScoreStatistics.Show();
+        }
     }
 }
